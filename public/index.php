@@ -15,6 +15,9 @@ include ROOT_DIR.'util/template.php';
 $mod = str_replace('.', '', param(0));
 $act = str_replace('.', '', param(1));
 
+$mod = ($mod==''? 'index': $mod);
+$act = ($act==''? 'index': $act);
+
 qh_util_routes($mod, $act);
 
 ob_end_flush();
