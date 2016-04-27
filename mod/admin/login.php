@@ -1,4 +1,11 @@
 <?php
 
+qh_util_template('adm/header', [
+    'title' => 'adm'
+]);
 
-?>login
+
+
+qh_util_template('adm/footer', [
+    'title' => 'adm'
+]);

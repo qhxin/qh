@@ -19,7 +19,7 @@
 !defined('XN_ROOT') AND define('XN_ROOT', str_replace('\\', '/', __DIR__).'/');
 
 error_reporting(DEBUG ? E_ALL : 0);
-version_compare(PHP_VERSION, '5.3.0', '<') AND set_magic_quotes_runtime(0);
+version_compare(PHP_VERSION, '5.4.0', '<') AND exit(0);
 $get_magic_quotes_gpc = get_magic_quotes_gpc();
 
 // 头部，判断是否运行在命令行下
