@@ -4,13 +4,12 @@ define('ROOT_DIR', str_replace('\\', '/', dirname(__DIR__)).'/');
 
 $conf = include ROOT_DIR.'conf/conf.php';
 include ROOT_DIR.'xn/xiunophp.php';
+include ROOT_DIR.'util/routes.php';
+include ROOT_DIR.'util/sessions.php';
 
+$mod = str_replace('.', '', param(0));
+$act = str_replace('.', '', param(1));
 
-$mod = param(0);
-$act = param(1);
-$uid = param('uid', 0);
+qh_util_routes($mod, $act);
 
-echo $mod, '_', $act, '_', $uid;
-
-print_r($_REQUEST);
-print_r($_SERVER);
+// end index
