@@ -888,7 +888,7 @@ function decrypt($txt, $key = 'abcd9667676effff') {
 // ---------------------> encrypt function end
 
 
-// 用例：pages('user-list-{page}.htm', 100, 10, 5);
+// 用例：pages('user-list-{page}.html', 100, 10, 5);
 function pages($url, $totalnum, $page, $pagesize = 20) {
 	$totalpage = ceil($totalnum / $pagesize);
 	if($totalpage < 2) return '';
@@ -1160,16 +1160,6 @@ function get__browser() {
 	return $browser;
 }
 
-function check_browser($browser, $abort = TRUE) {
-	if($browser['name'] == 'ie' && $browser['version'] < 8) {
-		include './pc/view/browser.htm';
-		exit;
-	//} elseif($browser['device'] != 'pc') {
-	//	header('Location: mobile/');
-	//	exit;
-	}
-}
-
 function is_robot() {
 	$browser = isset($_SERVER['HTTP_USER_AGENT']) ? strtolower($_SERVER['HTTP_USER_AGENT']) : '';
 	$robots = array('bot', 'spider', 'slurp');
@@ -1198,7 +1188,7 @@ function is_robot() {
 }*/
 
 /**
- * URL format: http://www.domain.com/demo/user-login.htm?a=b&c=d
+ * URL format: http://www.domain.com/demo/user-login.html?a=b&c=d
  * array(
  *     0 => user,
  *     1 => login
@@ -1220,10 +1210,10 @@ function init_query_string() {
 	$pos = strrpos($q, '/');
 	$pos === FALSE && $pos = -1;
 	$q = substr($q, $pos + 1);
-	if(substr($q, -4) == '.htm') $q = substr($q, 0, -4);
+	if(substr($q, -5) == '.html') $q = substr($q, 0, -5);
 	$r = $q ? (array)explode('-', $q) : array();
 
-	// 将 xxx.htm?a=b&c=d 后面的正常的 _GET 放到 $_SERVER['_GET']
+	// 将 xxx.html?a=b&c=d 后面的正常的 _GET 放到 $_SERVER['_GET']
 	if(!empty($arr['query'])) {
 		parse_str($arr['query'], $arr2);
 		$_SERVER['_GET'] = $arr2;
