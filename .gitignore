@@ -1,2 +1,4 @@
 conf/conf.php
 public/upload/*
+store/logs/*
+store/tmps/*

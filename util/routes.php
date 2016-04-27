@@ -7,7 +7,9 @@ function qh_util_routes($mod, $act){
     if(is_file($ma_path)){
         $ad_user = null;
         if($mod == 'admin' && $act != 'login'){// check admin login
-            $ad_user = qh_util_sessions('get', 'ad_user');
+            if(qh_util_sessions('has', 'ad_user')){
+                $ad_user = qh_util_sessions('get', 'ad_user');
+            }
             if(is_null($ad_user)){
                 header('Location:/admin-login.html');
                 exit;
@@ -15,8 +17,8 @@ function qh_util_routes($mod, $act){
         }
         include $ma_path;
     }else{
-        header('HTTP/1.1 404 Not Found');
-        header('Status: 404 Not Found');
+        xn_log('not found route:'.$_SERVER['REQUEST_URI'], 'log_error');
+        qh_util_status(404);
         exit;
     }
 }
