@@ -4,7 +4,9 @@ ob_start('qh_util_obgzip');
 
 define('ROOT_DIR', str_replace('\\', '/', dirname(__DIR__)).'/');
 
+global $conf;
 $conf = include ROOT_DIR.'conf/conf.php';
+
 include ROOT_DIR.'xn/xiunophp.php';
 include ROOT_DIR.'util/obgzip.php';
 include ROOT_DIR.'util/status.php';

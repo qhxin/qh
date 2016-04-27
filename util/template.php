@@ -3,6 +3,9 @@
 defined('ROOT_DIR') OR die();
 
 function qh_util_template($file, $tpl = []){
+    global $conf;
+    $tpl['cdn_domain'] = $conf['cdn_domain'];
+    $tpl['cdn_version'] = '?v='.$conf['cdn_version'];
     $ma_path = ROOT_DIR.'tpl/'.$file.'.php';
     if(is_file($ma_path)){
         include $ma_path;
