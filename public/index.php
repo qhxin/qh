@@ -8,11 +8,7 @@ global $conf;
 $conf = include ROOT_DIR.'conf/conf.php';
 
 include ROOT_DIR.'xn/xiunophp.php';
-include ROOT_DIR.'util/obgzip.php';
-include ROOT_DIR.'util/status.php';
-include ROOT_DIR.'util/routes.php';
-include ROOT_DIR.'util/sessions.php';
-include ROOT_DIR.'util/template.php';
+include ROOT_DIR.'util/util.php';
 
 $mod = str_replace('.', '', param(0));
 $act = str_replace('.', '', param(1));
