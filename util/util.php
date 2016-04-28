@@ -26,6 +26,8 @@ function qh_util_routes($mod, $act){
 
 function qh_util_template($file, $tpl = []){
     global $conf;
+    $tpl['description'] = isset($tpl['description'])? $tpl['description'] : $conf['description'];
+    $tpl['copyright'] = isset($tpl['copyright'])? $tpl['copyright'] : $conf['copyright'];
     $tpl['cdn_domain'] = $conf['cdn_domain'];
     $tpl['cdn_version'] = '?v='.$conf['cdn_version'];
     $ma_path = ROOT_DIR.'tpl/'.$file.'.php';

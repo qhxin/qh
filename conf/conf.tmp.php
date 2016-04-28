@@ -24,4 +24,6 @@ return [
     'log_path' => ROOT_DIR.'store/logs/',
     'cdn_domain' => false, // 默认false  格式： //qh.test.com
     'cdn_version' => 20160427, // cdn 版本号，用于更新
+    'description' => 'qh cms power on', // page description
+    'copyright' => 'qh cms', // copyright
 ];

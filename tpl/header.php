@@ -9,6 +9,9 @@
     <title><?php echo isset($tpl['title']) ? $tpl['title']: '管理后台';  ?></title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <meta name="description" content="<?php echo $tpl['description']; ?>"/>
+    <meta name="copyright" content="<?php echo $tpl['copyright']; ?>" />
+
     <!--
 　　　　　　　　┏┓　　　┏┓+ +
 　　　　　　　┏┛┻━━━┛┻┓ + +
@@ -32,6 +35,7 @@
 　　　　　　　　　　┃┫┫　┃┫┫
 　　　　　　　　　　┗┻┛　┗┻┛+ + + +
     -->
+    <link rel="stylesheet" href="<?php echo ($tpl['cdn_domain'] ? $tpl['cdn_domain']: ''), '/css/global.css', $tpl['cdn_version'];  ?>"/>
     <?php
 
     if(isset($tpl['css']) && is_array($tpl['css'])){
