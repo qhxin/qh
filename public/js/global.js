@@ -94,3 +94,10 @@ function isEmptyObject(obj) {
 	}
 	return true;
 }
+
+$(document).ready(function(){
+    $('.main').niceScroll({
+        cursorborder: "",
+        cursorcolor: "#999"
+    });
+});

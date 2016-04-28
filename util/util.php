@@ -6,7 +6,7 @@ function qh_util_routes($mod, $act){
     $ma_path = ROOT_DIR.'mod/'.$mod.'/'.$act.'.php';
     if(is_file($ma_path)){
         $ad_user = null;
-        if($mod == 'admin' && $act != 'login'){// check admin login
+        if($mod == 'admin' && !in_array($act, ['login', 'vcode'])){// check admin login
             if(qh_util_sessions('has', 'ad_user')){
                 $ad_user = qh_util_sessions('get', 'ad_user');
             }
