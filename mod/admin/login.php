@@ -8,6 +8,11 @@ qh_util_template('header', [
 ]);
 
 
+qh_util_template('adm/login_body', [
+    'scripts' => [
+        '/js/adm/login.js',
+    ],
+]);
 
 qh_util_template('footer', [
     'scripts' => [
