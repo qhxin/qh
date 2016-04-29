@@ -3,6 +3,11 @@
 defined('ROOT_DIR') OR die();
 
 function qh_util_routes($mod, $act){
+    global $conf;
+    global $ajax;
+    global $method;
+    global $db;
+    global $cache;
     $ma_path = ROOT_DIR.'mod/'.$mod.'/'.$act.'.php';
     if(is_file($ma_path)){
         $ad_user = null;

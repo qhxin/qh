@@ -9,7 +9,7 @@
             </div>
             <div class="formItem">
                 <div class="itemTitle fll">密码</div>
-                <input class="item flr" id="loginName" type="password" value=""/>
+                <input class="item flr" id="loginPass" type="password" value=""/>
                 <div class="clb"></div>
             </div>
             <div class="formItem">

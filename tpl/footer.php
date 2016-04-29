@@ -2,7 +2,7 @@
 
 <script src="<?php echo ($tpl['cdn_domain'] ? $tpl['cdn_domain']: ''), '/js/jquery-1.8.2.min.js', $tpl['cdn_version'];  ?>" type="text/javascript"></script>
 <script src="<?php echo ($tpl['cdn_domain'] ? $tpl['cdn_domain']: ''), '/js/jquery.nicescroll.min.js', $tpl['cdn_version'];  ?>" type="text/javascript"></script>
-<script src="<?php echo ($tpl['cdn_domain'] ? $tpl['cdn_domain']: ''), '/js/md5.min.js', $tpl['cdn_version'];  ?>" type="text/javascript"></script>
+<script src="<?php echo ($tpl['cdn_domain'] ? $tpl['cdn_domain']: ''), '/js/md5.js', $tpl['cdn_version'];  ?>" type="text/javascript"></script>
 <script src="<?php echo ($tpl['cdn_domain'] ? $tpl['cdn_domain']: ''), '/js/global.js', $tpl['cdn_version'];  ?>" type="text/javascript"></script>
 <!--[if lte IE 8]>
 <script src="<?php echo ($tpl['cdn_domain'] ? $tpl['cdn_domain']: ''), '/js/respond.min.js', $tpl['cdn_version'];  ?>" type="text/javascript"></script>
