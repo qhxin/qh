@@ -72,7 +72,7 @@ hr{
 
 .main_top{
     position: absolute;
-    top: 46px;
+    top: 0;
     left: 0;
     right: 0;
     height: 46px;
@@ -91,3 +91,9 @@ hr{
 .fll{ float: left; }
 .flr{ float: right; }
 .clb{ clear: both; }
+
+@media screen and (max-width: 800px) {
+    .wrapper{
+        width: 800px;
+    }
+}

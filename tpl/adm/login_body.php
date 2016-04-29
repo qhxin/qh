@@ -1,7 +1,7 @@
 <div class="main">
     <div class="loginForm">
         <div class="loginBox">
-            <div class="formTitle">登录后台</div>
+            <div class="formTitle">登录青花CMS后台</div>
             <div class="formItem">
                 <div class="itemTitle fll">账号</div>
                 <input class="item flr" id="loginName" type="text" value=""/>
