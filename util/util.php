@@ -16,8 +16,14 @@ function qh_util_routes($mod, $act){
                 $ad_user = qh_util_sessions('get', 'ad_user');
             }
             if(is_null($ad_user)){
-                header('Location:/admin-login.html');
+                if($ajax){
+                    qh_util_status(404);
+                }else{
+                    header('Location:/admin-login.html');
+                }
                 exit;
+            }else{
+                qh_util_sessions('set', 'ad_user', $ad_user);
             }
         }
         include $ma_path;

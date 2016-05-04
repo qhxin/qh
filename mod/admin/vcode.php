@@ -30,7 +30,7 @@ function vCode($code, $num = 4, $size = 20, $width = 0, $height = 0, $font_path 
     for($i = 0;$i < $num; $i++){
         $step_x = ($i+1)*$x_sise ;
         $text_color = imagecolorallocate($im, mt_rand(0, 200), mt_rand(0, 120), mt_rand(0, 120));
-        @imagefttext($im, mt_rand($size - 4, $size+4) , mt_rand( -45, 45), $step_x, mt_rand($size+6, $size+8), $text_color, $font_path , $code{$i});
+        @imagefttext($im, mt_rand($size - 2, $size+2) , mt_rand( -10, 10), $step_x, mt_rand($size+4, $size+6), $text_color, $font_path , $code{$i});
     }
 
     for($i = 0;$i < 5;$i++) {

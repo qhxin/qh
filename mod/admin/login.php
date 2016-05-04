@@ -11,13 +11,13 @@ if(isset($ajax) && $ajax){
                 'flag'=> false,
             ];
             if($data['vcode'] == qh_util_sessions('get', 'login_vcode')){
-                $origin_name = 'qhxin';
-                $origin_pass = '123456';
+                $sqladd = cond_to_sqladd(array('adm_name'=>$data['name'], 'adm_pass'=>$data['pass']));
+                $arr = db_find_one('SELECT * FROM admins '.$sqladd);
 
-                if($data['name'] == $origin_name  && $data['pass'] == md5($origin_name.$origin_pass.$data['vcode'])){
+                if(isset($arr['adm_id']) && $arr['adm_id']>0){
                     // record ad_user
                     qh_util_sessions('set', 'ad_user', [
-                        'name' => $origin_name,
+                        'name' => $arr['adm_name'],
                     ]);
                     // destroy vcode
                     qh_util_sessions('des', 'login_vcode');

@@ -22,14 +22,13 @@ $(document).ready(function(){
                 checking = false;
                 return;
             }
-            pass = hex_md5(''+name+pass+vcode);
             $.ajax({
                 'url': '/admin-login.html?ajax=1',
                 'type': 'POST',
                 'data': {
                     "send": JSON.stringify({
                         'name': name,
-                        'pass': pass,
+                        'pass': hex_md5(pass),
                         'vcode': vcode
                     })
                 },

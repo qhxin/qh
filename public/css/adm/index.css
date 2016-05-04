@@ -101,3 +101,45 @@
     background: url("/imgs/adm/loading.gif") center center no-repeat;
     height: 100px;
 }
+.adminForm{
+
+}
+.adminFormItem{
+    height: 60px;
+    box-sizing: border-box;
+    padding-top: 10px;
+}
+.adminForm .adminFormName{
+    height: 40px;
+    line-height: 40px;
+    width: 200px;
+    text-align: center;
+}
+.adminForm .adminFormEdit{
+    display: block;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #ccc;
+    margin: 0 auto;
+    border-radius: 3px;
+    color: #fff;
+}
+.adminForm .adminFormLogout{
+    margin: 30px auto;
+    display: block;
+    width: 100px;
+    text-align: center;
+}
+.adminForm .adminFormLogout:hover,
+.adminForm .adminFormEdit:hover{
+    color: #ff0000;
+}
+.adminForm input{
+    height: 40px;
+    box-sizing: border-box;
+    width: 500px;
+    margin-right: 60px;
+    padding-left: 10px;
+}
