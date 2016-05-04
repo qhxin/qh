@@ -86,7 +86,6 @@ hr{
 }
 .wrapper{
     min-width: 600px;
-    min-height: 800px;
 }
 .fll{ float: left; }
 .flr{ float: right; }

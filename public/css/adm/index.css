@@ -38,45 +38,66 @@
     color: #111;
 }
 .mainLayout{
-    margin: 60px auto 0 auto;
+    margin: 60px auto;
     width: 800px;
     background-color: #fff;
-    height: 1024px;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
     box-shadow: 0px 2px 5px #333333;
-    position: relative;
 }
 .mainLayoutTop{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     height: 60px;
     line-height: 60px;
     box-sizing: border-box;
-    padding-left: 20px;
+    padding: 0 20px;
     border-bottom: 1px solid #e3e3e3;
     background-color: #f7f7f7;
     font-size: 18px;
     border-radius: 10px 10px 0 0;
     font-weight: bold;
 }
+.mainLayoutTopMethod{
+    font-size: 14px;
+    font-weight: 500;
+}
 .mainLayoutBottom{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     height: 30px;
     line-height: 30px;
     box-sizing: border-box;
     background-color: #f7f7f7;
     border-top: 1px solid #e3e3e3;
+    border-radius: 0 0 10px 10px;
     text-align: center;
 }
 .mainLayoutContainer{
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    bottom: 30px;
+    position: relative;
+}
+.mainBox {
+    width:760px;
+    margin:20px auto;
+}
+.mainBox .li{
+    height: 60px;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+.mainBox .li input{
+    height: 40px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    width: 570px;
+}
+.mainBox .li a{
+    display: block;
+    width: 60px;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.mainBox .li a:hover{
+    color: #ff0000;
+}
+.loading{
+    background: url("/imgs/adm/loading.gif") center center no-repeat;
+    height: 100px;
 }
