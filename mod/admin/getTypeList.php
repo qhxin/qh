@@ -9,12 +9,16 @@ if(isset($ajax) && $ajax){
 
     if($logined && isset($ad_user['name'])){
 
-
-        $res['data'] = [
-            '0'=> '回收站',
-        ];
-        $res['flag'] = true;
-
+        $arr = db_find('SELECT * FROM types '.cond_to_sqladd(array('type_isvalid'=> 1)).orderby_to_sqladd(array('type_id'=> 1)));
+        if($arr !== FALSE){
+            $res['data'] = [
+                '0'=> '回收站',
+            ];
+            foreach($arr as $each){
+                $res['data'][$each['type_id']] = $each['type_name'];
+            }
+            $res['flag'] = true;
+        }
     }else{
         xn_log('getTypeList without login.', 'adm_login_err');
     }

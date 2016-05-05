@@ -13,29 +13,26 @@ if(isset($ajax) && $ajax){
         $res = [];
         if(strlen($send)>0){
             $data = xn_json_decode($send);
-            if(!is_null($data) && isset($data['name'])){
+            if(!is_null($data) && isset($data['name']) && isset($data['tid'])){
                 $res = [
                     'flag'=> false,
                 ];
                 $sqladd = cond_to_sqladd(array('type_name'=> $data['name']));
                 $arr = db_find_one('SELECT * FROM types '.$sqladd);
                 if($arr===FALSE){
-                    $sqlarr = array_to_sqladd(array('type_name'=> $data['name'], 'type_isvalid'=> 1));
-                    $new_id = db_exec('INSERT INTO types SET '.$sqlarr);
-                    if($new_id !== FALSE){
-                        $res['tid'] = $new_id;
-                        $res['name'] = $data['name'];
+                    $efid = db_exec('UPDATE types SET '.array_to_sqladd(['type_name'=> $data['name']]).cond_to_sqladd(['type_id'=> $data['tid']]));
+                    if($efid !== FALSE){
                         $res['flag'] = true;
                     }
                 }else{// 重复命名的
                     $res['code'] = 1;
                 }
             }else{
-                xn_log('admin addType argument lose, need name.', 'adm_login_err');
+                xn_log('admin editType argument lose, need name,tid.', 'adm_login_err');
             }
         }
     }else{
-        xn_log('addType without login.', 'adm_login_err');
+        xn_log('editType without login.', 'adm_login_err');
     }
     echo xn_json_encode($res);
 }else{

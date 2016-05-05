@@ -42,15 +42,16 @@ $(document).ready(function(){
                         if(list.hasOwnProperty(i)){
                             html += '<div class="li" data-id="'+i+'">';
                             if(i==0){
-                                html += '<input class="fll" type="text" value="'+list[i]+'" disabled="disabled"/><a class="flr">管理文章</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【删除】</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【修改】</a><div class="clb"></div>';
+                                html += '<input class="fll" type="text" value="'+list[i]+'" disabled="disabled"/><a class="manage flr">管理文章</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【删除】</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【修改】</a><div class="clb"></div>';
                             }else{
-                                html += '<input class="fll" type="text" value="'+list[i]+'"/><a class="flr">管理文章</a><a class="flr">【删除】</a><a class="flr">【修改】</a><div class="clb"></div>';
+                                html += '<input class="fll" type="text" value="'+list[i]+'"/><a class="manage flr">管理文章</a><a class="delete flr">【删除】</a><a class="edit flr">【修改】</a><div class="clb"></div>';
                             }
                             html += '</div>';
                         }
                     }
                     html += '</div>';
                     loading.callback(html, '<a id="createNewType">新增分类</a>');
+                    var mainBox = $('.mainBox');
                     $('#createNewType').click(function(){
                         var name = prompt('请填写分类名');
                         if(name!=null && name!=""){
@@ -60,9 +61,63 @@ $(document).ready(function(){
                                 'data': {"send": JSON.stringify({'name': name})},
                                 'dataType': 'JSON'
                             }).success(function(data){
-
+                                if(data.flag){
+                                    $('.mainBox').append('<div class="li" data-id="'+data.tid+'"><input class="fll" type="text" value="'+data.name+'"><a class="manage flr">管理文章</a><a class="delete flr">【删除】</a><a class="edit flr">【修改】</a><div class="clb"></div></div>');
+                                    $('.main').getNiceScroll().resize();
+                                    alert('新增成功');
+                                }else{
+                                    if(data.code==1){
+                                        alert('分类命名重复');
+                                    }
+                                }
                             });
                         }
+                    });
+                    mainBox.on('click.delete', '.delete', function(){
+                        var $this = $(this),
+                            li = $this.closest('.li'),
+                            tid = li.data('id'),
+                            name = li.children('input').val()||'';
+                        if(!confirm('确定删除分类：“'+name+'”吗？分类下的文章会移入回收站')){
+                            return;
+                        }
+                        $.ajax({
+                            'url': '/admin-delType.html?ajax=1',
+                            'type': 'POST',
+                            'data': {"send": JSON.stringify({'tid': tid})},
+                            'dataType': 'JSON'
+                        }).success(function(data){
+                            if(data.flag){
+                                alert('删除成功');
+                            }else{
+                                alert('删除失败');
+                            }
+                        });
+                    }).on('click.edit', '.edit', function(){
+                        var $this = $(this),
+                            li = $this.closest('.li'),
+                            tid = li.data('id'),
+                            name = li.children('input').val()||'';
+                        if(name==''){
+                            alert('命名不能为空');
+                            return;
+                        }
+                        $.ajax({
+                            'url': '/admin-editType.html?ajax=1',
+                            'type': 'POST',
+                            'data': {"send": JSON.stringify({'name': name, 'tid': tid})},
+                            'dataType': 'JSON'
+                        }).success(function(data){
+                            if(data.flag){
+                                alert('修改成功');
+                            }else{
+                                if(data.code==1){
+                                    alert('分类命名重复');
+                                }
+                            }
+                        });
+                    }).on('click.manage', '.manage', function(){
+
                     });
                 } else {
                     alert('获取信息失败');
