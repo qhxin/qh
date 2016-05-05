@@ -26,28 +26,49 @@ $(document).ready(function(){
 
     var action = {
         'manage_type' : function(){
-            var list = {
-                '1': '分类1',
-                '2': '分类2',
-                '5': '分类3',
-                '0': '回收站'
-            };
-            var html = '<div class="mainBox">';
-            for(var i in list){
-                if(list.hasOwnProperty(i)){
-                    html += '<div class="li" data-id="'+i+'">';
-                    if(i==0){
-                        html += '<input class="fll" type="text" value="'+list[i]+'" disabled="disabled"/><a class="flr">管理文章</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【删除】</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【修改】</a><div class="clb"></div>';
-                    }else{
-                        html += '<input class="fll" type="text" value="'+list[i]+'"/><a class="flr">管理文章</a><a class="flr">【删除】</a><a class="flr">【修改】</a><div class="clb"></div>';
+            $.ajax({
+                'url': '/admin-getTypeList.html?ajax=1',
+                'type': 'POST',
+                'dataType': 'JSON'
+            }).error(function(){
+                alert('网络错误');
+                loading.callback('', '');
+            }).success(function(data) {
+                var html = '';
+                if (data.flag === 1) {
+                    var list = data.data;
+                    html = '<div class="mainBox">';
+                    for(var i in list){
+                        if(list.hasOwnProperty(i)){
+                            html += '<div class="li" data-id="'+i+'">';
+                            if(i==0){
+                                html += '<input class="fll" type="text" value="'+list[i]+'" disabled="disabled"/><a class="flr">管理文章</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【删除】</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【修改】</a><div class="clb"></div>';
+                            }else{
+                                html += '<input class="fll" type="text" value="'+list[i]+'"/><a class="flr">管理文章</a><a class="flr">【删除】</a><a class="flr">【修改】</a><div class="clb"></div>';
+                            }
+                            html += '</div>';
+                        }
                     }
                     html += '</div>';
+                    loading.callback(html, '<a id="createNewType">新增分类</a>');
+                    $('#createNewType').click(function(){
+                        var name = prompt('请填写分类名');
+                        if(name!=null && name!=""){
+                            $.ajax({
+                                'url': '/admin-addType.html?ajax=1',
+                                'type': 'POST',
+                                'data': {"send": JSON.stringify({'name': name})},
+                                'dataType': 'JSON'
+                            }).success(function(data){
+
+                            });
+                        }
+                    });
+                } else {
+                    alert('获取信息失败');
+                    loading.callback(html, '');
                 }
-            }
-            html += '</div>';
-
-
-            loading.callback(html, '<a>新增分类</a>');
+            });
         },
         'manage_admins' : function(){
             $.ajax({

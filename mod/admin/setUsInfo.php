@@ -24,8 +24,7 @@ if(isset($ajax) && $ajax){
                 if(isset($data['newpass']) && !empty($data['newpass'])){
                     $set_value['adm_pass'] = $data['newpass'];
                 }
-                $sqlset = cond_to_sqladd($set_value);
-                $sqlset = substr($sqlset, 6);
+                $sqlset = array_to_sqladd($set_value);
 
                 $effcted = db_exec('UPDATE admins SET '.$sqlset.' '.$sqladd);
                 if($effcted){
