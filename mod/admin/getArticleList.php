@@ -9,6 +9,17 @@ if(isset($ajax) && $ajax){
 
     if($logined && isset($ad_user['name'])){
 
+        $send = param('send', '', false);
+        $res = [];
+        if(strlen($send)>0) {
+            $data = xn_json_decode($send);
+            if (!is_null($data) && isset($data['fid'])) {
+
+            }else{
+                xn_log('admin info set argument lose', 'adm_login_err');
+            }
+        }
+        // TODO SQL
         $arr = db_find('SELECT * FROM types '.cond_to_sqladd(array('type_isvalid'=> 1)).orderby_to_sqladd(array('type_id'=> 1)));
         if($arr !== FALSE){
             $res['data'] = [
@@ -20,7 +31,7 @@ if(isset($ajax) && $ajax){
             $res['flag'] = true;
         }
     }else{
-        xn_log('getTypeList without login.', 'adm_login_err');
+        xn_log('getArticleList without login.', 'adm_login_err');
     }
 
     echo json_encode($res);

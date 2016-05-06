@@ -3,7 +3,8 @@ $(document).ready(function(){
     var mainLayoutContainer = $('#mainLayoutContainer'),
         mainLayoutTopTitle = $('#mainLayoutTopTitle'),
         mainLayoutTopMethod = $('#mainLayoutTopMethod'),
-        alwaysKeepAlive = true;
+        alwaysKeepAlive = true,
+        allTypesList = {};
 
     //mainLayoutContainer.html('<script id="UEditor" type="text/plain" style="width:700px;height:500px;margin:30px auto;"></script>');
     //var ue = UE.getEditor('UEditor', {
@@ -35,18 +36,21 @@ $(document).ready(function(){
                 loading.callback('', '');
             }).success(function(data) {
                 var html = '';
-                if (data.flag === 1) {
+                if (data.flag) {
                     var list = data.data;
+                    allTypesList = {};
                     html = '<div class="mainBox">';
                     for(var i in list){
                         if(list.hasOwnProperty(i)){
-                            html += '<div class="li" data-id="'+i+'">';
-                            if(i==0){
+                            var id= parseInt(i, 10);
+                            html += '<div class="li" data-id="'+id+'">';
+                            if(id==0){
                                 html += '<input class="fll" type="text" value="'+list[i]+'" disabled="disabled"/><a class="manage flr">管理文章</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【删除】</a><a class="flr" style="text-decoration: line-through;color: #ccc;">【修改】</a><div class="clb"></div>';
                             }else{
                                 html += '<input class="fll" type="text" value="'+list[i]+'"/><a class="manage flr">管理文章</a><a class="delete flr">【删除】</a><a class="edit flr">【修改】</a><div class="clb"></div>';
                             }
                             html += '</div>';
+                            allTypesList[id] = list[i];
                         }
                     }
                     html += '</div>';
@@ -62,6 +66,7 @@ $(document).ready(function(){
                                 'dataType': 'JSON'
                             }).success(function(data){
                                 if(data.flag){
+                                    allTypesList[data.tid] = data.name;
                                     $('.mainBox').append('<div class="li" data-id="'+data.tid+'"><input class="fll" type="text" value="'+data.name+'"><a class="manage flr">管理文章</a><a class="delete flr">【删除】</a><a class="edit flr">【修改】</a><div class="clb"></div></div>');
                                     $('.main').getNiceScroll().resize();
                                     alert('新增成功');
@@ -117,7 +122,7 @@ $(document).ready(function(){
                             }
                         });
                     }).on('click.manage', '.manage', function(){
-
+                        $('.sysTabs a[data-type="article"]').data('fid', $(this).closest('.li').data('id')).trigger('click');
                     });
                 } else {
                     alert('获取信息失败');
@@ -135,7 +140,7 @@ $(document).ready(function(){
                 loading.callback('', '');
             }).success(function(data){
                 var html = '';
-                if(data.flag === 1){
+                if(data.flag){
                     html = '<div class="mainBox"><div class="adminForm">' +
                     '<div class="adminFormItem"><div class="adminFormName fll">*账户修改</div><input class="flr adminEditName" type="text" value="'+data.name+'"/><div class="clb"></div></div>' +
                     '<div class="adminFormItem"><div class="adminFormName fll">*当前密码</div><input class="flr adminEditPass" type="password" value=""/><div class="clb"></div></div>' +
@@ -201,6 +206,39 @@ $(document).ready(function(){
                     }
                 });
             });
+        },
+        'manage_article': function(fid){
+            var fname = allTypesList[fid];
+
+            $.ajax({
+                'url': '/admin-getArticleList.html?ajax=1',
+                'type': 'POST',
+                'data': {"send": JSON.stringify({'fid': fid})},
+                'dataType': 'JSON'
+            }).error(function(){
+                alert('网络错误');
+                loading.callback('', '');
+            }).success(function(data) {
+                var html = '';
+                // TODO HTML
+                if (data.flag) {
+                    var list = data.data;
+                    html = '<div class="mainBox">';
+                    for (var i in list) {
+                        if (list.hasOwnProperty(i)) {
+                            html += '<div class="li" data-id="' + i + '">';
+
+                            html += '</div>';
+                        }
+                    }
+                    html += '</div>';
+                    loading.callback(html, '【'+fname+'】<a id="createNewArticle">新增文章</a>');
+                    var mainBox = $('.mainBox');
+                }else{
+                    alert('获取列表失败');
+                    loading.callback('', '');
+                }
+            });
         }
     };
 
@@ -225,7 +263,8 @@ $(document).ready(function(){
                     action.manage_type();
                     break;
                 case 'article':
-                    //method_html = '<a>新增文章</a>';
+                    var fid = parseInt($pTabBtn.data('fid'), 10)||0;
+                    action.manage_article(fid);
                     break;
                 case 'files':
                     break;
